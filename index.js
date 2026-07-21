@@ -7,7 +7,7 @@ let Service, Characteristic, Homebridge, Accessory, HapStatusError, HAPStatus, H
 
 const PLUGIN_NAME = 'homebridge-webos-tv-ergin';
 const PLATFORM_NAME = 'webostv';
-const PLUGIN_VERSION = '1.0.1';
+const PLUGIN_VERSION = '1.0.2';
 
 // General constants
 const NOT_EXISTING_INPUT = 999999;
@@ -329,9 +329,9 @@ class webosTvDevice {
   // tv information service ----------------------------------------------------------------
   updateInformationService() {
 
-    let modelName = this.lgTvCtrl.getTvSystemInfo() ? this.lgTvCtrl.getTvSystemInfo().modelName : 'Unknown';
-    let productName = this.lgTvCtrl.getTvSwInfo() ? `${this.lgTvCtrl.getTvSwInfo().product_name} (${PLUGIN_VERSION})` : PLUGIN_VERSION;
-    let tvFirmwareVer = this.lgTvCtrl.getTvSwInfo() ? this.lgTvCtrl.getTvSwInfo().major_ver + '.' + this.lgTvCtrl.getTvSwInfo().minor_ver : 'Unknown';
+    let modelName = this.lgTvCtrl.getTvSystemInfo() ? this.lgTvCtrl.getTvSystemInfo().modelName : (this.name || 'webOS TV');
+    let productName = this.lgTvCtrl.getTvSwInfo() ? `${this.lgTvCtrl.getTvSwInfo().product_name} (${PLUGIN_VERSION})` : `webOS TV (${PLUGIN_VERSION})`;
+    let tvFirmwareVer = this.lgTvCtrl.getTvSwInfo() ? this.lgTvCtrl.getTvSwInfo().major_ver + '.' + this.lgTvCtrl.getTvSwInfo().minor_ver : PLUGIN_VERSION;
 
     // remove the preconstructed information service, since i will be adding my own
     this.tvAccesory.removeService(this.tvAccesory.getService(Service.AccessoryInformation));
