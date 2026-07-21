@@ -35,17 +35,18 @@ If you are already running a TV with native Homekit integration then you can sti
 
 ## Installation
 
-If you are new to homebridge, please first read the homebridge [documentation](https://www.npmjs.com/package/homebridge).
-If you are running on a Raspberry, you will find a tutorial in the [homebridge wiki](https://github.com/homebridge/homebridge/wiki/Install-Homebridge-on-Raspbian).
+#### One-line Installation for Raspberry Pi (SSH)
+If you are running Homebridge as a service (`hb-service`) on Raspberry Pi or Linux, you can install the plugin directly with this command:
 
-Install homebridge:
-```sh
-sudo npm install -g homebridge
+```bash
+sudo hb-service add https://github.com/ozturkergin/homebridge-LGWebOS.git
 ```
 
-Install homebridge-webos-tv:
-```sh
-sudo npm install -g homebridge-webos-tv
+#### Manual Installation / Direct Git Install
+You can also install the plugin directly from this GitHub repository using `npm`:
+
+```bash
+sudo npm install -g git+https://github.com/ozturkergin/homebridge-LGWebOS.git
 ```
 
 ## Configuration
