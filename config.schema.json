@@ -1,0 +1,768 @@
+{
+  "pluginAlias": "webostv",
+  "pluginType": "platform",
+  "singular": true,
+  "headerDisplay": "Homebridge plugin for LG webOS TVs. The TV must be [added manually](https://github.com/merdok/homebridge-webos-tv#adding-the-tv-to-the-home-app) in the Home app.",
+  "footerDisplay": "For a detailed description, see the [README](https://github.com/merdok/homebridge-webos-tv#parameters).",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "devices": {
+        "title": "Devices",
+        "type": "array",
+        "required": true,
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "title": "Device name",
+              "description": "The name of your TV.",
+              "type": "string",
+              "default": "My LG TV",
+              "minLength": 1,
+              "required": true
+            },
+            "ip": {
+              "title": "TV ip address",
+              "description": "The ip address of your TV.",
+              "type": "string",
+              "format": "ipv4",
+              "required": true
+            },
+            "mac": {
+              "title": "TV mac address",
+              "description": "The mac address of your TV.",
+              "type": "string",
+              "required": true
+            },
+            "broadcastAdr": {
+              "title": "Broadcast address",
+              "description": "If homebridge runs on a host with more than one network interface use this to specify the broadcast address.",
+              "type": "string",
+              "format": "ipv4"
+            },
+            "keyFile": {
+              "title": "Key file location",
+              "description": "The location where to store the tv key file. Default is: ~/.homebridge/.webosTv/keyFile_xxx",
+              "type": "string"
+            },
+            "prefsDir": {
+              "title": "Prefs directory",
+              "description": "The location where to store tv information. Default is: ~/.homebridge/.webosTv",
+              "type": "string"
+            },
+            "pollingInterval": {
+              "title": "Background polling interval",
+              "description": "How often to check the status of the tv in seconds.",
+              "type": "number",
+              "default": 5
+            },
+            "deepDebugLog": {
+              "title": "Enable deep debug log",
+              "description": "Enables additional more detailed debug log. Useful when trying to figure out issues with the plugin.",
+              "type": "boolean"
+            },
+            "silentLog": {
+              "title": "Enable silent log",
+              "description": "When enabled all log output will only appear in the debug mode.",
+              "type": "boolean"
+            },
+            "hideTvService": {
+              "title": "Hide the TV service",
+              "description": "Recommended when the TV already supports native HomeKit integration to prevent double TV accessories.",
+              "type": "boolean"
+            },
+            "volumeLimit": {
+              "title": "Volume limit for the volume service",
+              "description": "Allows to limit the volume which can be set using the volume service.",
+              "type": "integer",
+              "default": 100,
+              "maximum": 100,
+              "minimum": 1
+            },
+            "volumeControl": {
+              "title": "Volume control service",
+              "description": "Whether to enable additional volume control. Button - adds volume up/down buttons, Slider - adds a light bulb which acts as a volume controller.",
+              "type": [
+                "string"
+              ],
+              "oneOf": [{
+                  "title": "None",
+                  "const": "none"
+                },
+                {
+                  "title": "Both - slider and buttons",
+                  "const": "both"
+                },
+                {
+                  "title": "Slider (as lightbulb)",
+                  "const": "slider"
+                },
+                {
+                  "title": "Lightbulb",
+                  "const": "lightbulb"
+                },
+                {
+                  "title": "Fan",
+                  "const": "fan"
+                },
+                {
+                  "title": "Buttons",
+                  "const": "buttons"
+                }
+              ],
+              "default": "both",
+              "required": true
+            },
+            "channelControl": {
+              "title": "Channel control service",
+              "description": "Whether to show channel up/down buttons.",
+              "type": "boolean",
+              "default": true
+            },
+            "mediaControl": {
+              "title": "Media control service",
+              "description": "Whether to show media control buttons.",
+              "type": "boolean"
+            },
+            "screenControl": {
+              "title": "Screen control service",
+              "description": "Whether to show the screen control button. Allows to turn on/off the tv screen.",
+              "type": "boolean"
+            },
+            "screenSaverControl": {
+              "title": "Screen saver control service",
+              "description": "Whether to show the screen saver control button. Allows to instantly activate the screen saver on the TV. Can be used only when no content is playing on the tv.",
+              "type": "boolean"
+            },
+            "serviceMenuButton": {
+              "title": "Service menu button",
+              "description": "Whether to show a button which opens the service menu.",
+              "type": "boolean"
+            },
+            "ezAdjustButton": {
+              "title": "ezAdjust button",
+              "description": "Whether to show a button which opens the ezAdjust menu.",
+              "type": "boolean"
+            },
+            "backlightControl": {
+              "title": "Backlight control service",
+              "description": "Whether the backlight control service is enabled. Allows to control the backlight picture setting of the TV.",
+              "type": "boolean"
+            },
+            "brightnessControl": {
+              "title": "Brightness control service",
+              "description": "Whether the brightness control service is enabled. Allows to control the brightness picture setting of the TV.",
+              "type": "boolean"
+            },
+            "colorControl": {
+              "title": "Color control service",
+              "description": "Whether the color control service is enabled. Allows to control the color picture setting of the TV.",
+              "type": "boolean"
+            },
+            "contrastControl": {
+              "title": "Contrast control service",
+              "description": "Whether the contrast control service is enabled. Allows to control the contrast picture setting of the TV.",
+              "type": "boolean"
+            },
+            "ccRemoteRemap": {
+              "title": "Remap control center remote buttons",
+              "type": "object",
+              "properties": {
+                "arrowup": {
+                  "title": "Arrow up button",
+                  "type": "string"
+                },
+                "arrowdown": {
+                  "title": "Arrow down button",
+                  "type": "string"
+                },
+                "arrowleft": {
+                  "title": "Arrow left button",
+                  "type": "string"
+                },
+                "arrowright": {
+                  "title": "Arrow right button",
+                  "type": "string"
+                },
+                "select": {
+                  "title": "Select button",
+                  "type": "string"
+                },
+                "back": {
+                  "title": "Back button",
+                  "type": "string"
+                },
+                "playpause": {
+                  "title": "PlayPause button",
+                  "type": "string"
+                },
+                "information": {
+                  "title": "Information button",
+                  "type": "string"
+                }
+              }
+            },
+            "inputs": {
+              "title": "Inputs",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "appId": {
+                    "title": "appId",
+                    "type": "string",
+                    "required": true
+                  },
+                  "name": {
+                    "title": "name",
+                    "type": "string",
+                    "required": true
+                  }
+                }
+              }
+            },
+            "appButtons": {
+              "title": "App buttons",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "appId": {
+                    "title": "appId",
+                    "type": "string",
+                    "required": true
+                  },
+                  "name": {
+                    "title": "name",
+                    "type": "string",
+                    "required": true
+                  }
+                }
+              }
+            },
+            "channelButtons": {
+              "title": "Channel buttons",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "channelNumber": {
+                    "title": "Channel number",
+                    "type": "number",
+                    "required": true
+                  },
+                  "channelId": {
+                    "title": "Channel id",
+                    "type": "string"
+                  },
+                  "name": {
+                    "title": "Channel name",
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "notificationButtons": {
+              "title": "Notification buttons",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "title": "message",
+                    "type": "string",
+                    "required": true
+                  },
+                  "name": {
+                    "title": "name",
+                    "type": "string"
+                  },
+                  "appId": {
+                    "title": "appId",
+                    "type": "string"
+                  },
+                  "file": {
+                    "title": "file",
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "remoteControlButtons": {
+              "title": "Remote control buttons",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "action": {
+                    "title": "Action",
+                    "type": "string"
+                  },
+                  "name": {
+                    "title": "Name",
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "remoteSequenceButtons": {
+              "title": "Remote sequence buttons",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "sequence": {
+                    "title": "sequence",
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "required": true
+                    }
+                  },
+                  "name": {
+                    "title": "name",
+                    "type": "string"
+                  },
+                  "interval": {
+                    "title": "interval",
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "default": 500
+                  }
+                }
+              }
+            },
+            "soundOutputButtons": {
+              "title": "Sound output buttons",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "soundOutput": {
+                    "title": "Sound output",
+                    "type": "string",
+                    "enum": [
+                      "tv_speaker",
+                      "external_optical",
+                      "external_arc",
+                      "external_speaker",
+                      "lineout",
+                      "headphone",
+                      "tv_external_speaker",
+                      "tv_speaker_headphone",
+                      "bt_soundbar",
+                      "soundbar"
+                    ]
+                  },
+                  "name": {
+                    "title": "name",
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "pictureModeButtons": {
+              "title": "Picture mode buttons",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "pictureMode": {
+                    "title": "Picture mode",
+                    "type": "string",
+                    "enum": [
+                      "cinema",
+                      "eco",
+                      "expert1",
+                      "expert2",
+                      "game",
+                      "normal",
+                      "photo",
+                      "sports",
+                      "technicolor",
+                      "vivid",
+                      "hdrEffect",
+                      "hdrCinema",
+                      "hdrCinemaBright",
+                      "hdrExternal",
+                      "hdrGame",
+                      "hdrStandard",
+                      "hdrTechnicolor",
+                      "hdrVivid",
+                      "dolbyHdrCinema",
+                      "dolbyHdrCinemaBright",
+                      "dolbyHdrDarkAmazon",
+                      "dolbyHdrGame",
+                      "dolbyHdrStandard",
+                      "dolbyHdrVivid",
+                      "dolbyStandard",
+                      "filmMaker",
+                      "hdrFilmMaker"
+                    ]
+                  },
+                  "name": {
+                    "title": "name",
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "soundModeButtons": {
+              "title": "Sound mode buttons",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "soundMode": {
+                    "title": "Sound mode",
+                    "type": "string",
+                    "enum": [
+                      "aiSoundPlus",
+                      "standard",
+                      "movie",
+                      "news",
+                      "sports",
+                      "music",
+                      "game"
+                    ]
+                  },
+                  "name": {
+                    "title": "name",
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "triggers": {
+              "title": "Occupancy triggers",
+              "type": "object",
+              "properties": {
+                "volume": {
+                  "title": "Volume",
+                  "type": "object",
+                  "properties": {
+                    "threshold": {
+                      "title": "Threshold",
+                      "type": "number"
+                    },
+                    "name": {
+                      "title": "Name",
+                      "type": "string"
+                    }
+                  }
+                },
+                "backlight": {
+                  "title": "Backlight",
+                  "type": "object",
+                  "properties": {
+                    "threshold": {
+                      "title": "Threshold",
+                      "type": "number"
+                    },
+                    "name": {
+                      "title": "Name",
+                      "type": "string"
+                    }
+                  }
+                },
+                "brightness": {
+                  "title": "Brightness",
+                  "type": "object",
+                  "properties": {
+                    "threshold": {
+                      "title": "Threshold",
+                      "type": "number"
+                    },
+                    "name": {
+                      "title": "Name",
+                      "type": "string"
+                    }
+                  }
+                },
+                "color": {
+                  "title": "Color",
+                  "type": "object",
+                  "properties": {
+                    "threshold": {
+                      "title": "Threshold",
+                      "type": "number"
+                    },
+                    "name": {
+                      "title": "Name",
+                      "type": "string"
+                    }
+                  }
+                },
+                "contrast": {
+                  "title": "Contrast",
+                  "type": "object",
+                  "properties": {
+                    "threshold": {
+                      "title": "Threshold",
+                      "type": "number"
+                    },
+                    "name": {
+                      "title": "Name",
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "layout": [{
+    "key": "devices",
+    "type": "tabarray",
+    "title": "{{ value.name || 'new TV' }}",
+    "items": [
+      "devices[].name",
+      "devices[].ip",
+      "devices[].mac",
+      {
+        "key": "devices[]",
+        "type": "fieldset",
+        "title": "{{ value.title }}",
+        "items": [{
+            "key": "devices[]",
+            "type": "fieldset",
+            "title": "Advanced settings",
+            "expandable": true,
+            "expanded": false,
+            "items": [
+              "devices[].pollingInterval",
+              "devices[].broadcastAdr",
+              "devices[].keyFile",
+              "devices[].prefsDir",
+              "devices[].hideTvService",
+              "devices[].deepDebugLog",
+              "devices[].silentLog"
+            ]
+          },
+          {
+            "key": "devices[]",
+            "type": "fieldset",
+            "title": "General TV service settings",
+            "expandable": true,
+            "expanded": false,
+            "items": [
+              "devices[].volumeLimit",
+              "devices[].volumeControl",
+              "devices[].mediaControl",
+              "devices[].channelControl",
+              "devices[].screenControl",
+              "devices[].screenSaverControl",
+              "devices[].serviceMenuButton",
+              "devices[].ezAdjustButton",
+              "devices[].backlightControl",
+              "devices[].brightnessControl",
+              "devices[].colorControl",
+              "devices[].contrastControl"
+            ]
+          },
+          {
+            "key": "devices[].ccRemoteRemap",
+            "type": "fieldset",
+            "expandable": true,
+            "expanded": false,
+            "items": [
+              "devices[].ccRemoteRemap.arrowleft",
+              "devices[].ccRemoteRemap.arrowup",
+              "devices[].ccRemoteRemap.arrowright",
+              "devices[].ccRemoteRemap.arrowdown",
+              "devices[].ccRemoteRemap.select",
+              "devices[].ccRemoteRemap.back",
+              "devices[].ccRemoteRemap.playpause",
+              "devices[].ccRemoteRemap.information"
+            ]
+          },
+          {
+            "key": "devices[].inputs",
+            "title": "Inputs",
+            "buttonText": "Add input",
+            "type": "fieldset",
+            "expandable": true,
+            "expanded": false,
+            "items": [
+              "devices[].inputs[].appId",
+              "devices[].inputs[].name"
+            ]
+          },
+          {
+            "key": "devices[].appButtons",
+            "title": "App buttons",
+            "buttonText": "Add app button",
+            "type": "fieldset",
+            "expandable": true,
+            "expanded": false,
+            "items": [
+              "devices[].appButtons[].appId",
+              "devices[].appButtons[].name"
+            ]
+          },
+          {
+            "key": "devices[].channelButtons",
+            "title": "Channel buttons",
+            "buttonText": "Add channel button",
+            "type": "fieldset",
+            "expandable": true,
+            "expanded": false,
+            "items": [
+              "devices[].channelButtons[].channelNumber",
+              "devices[].channelButtons[].channelId",
+              "devices[].channelButtons[].name"
+            ]
+          },
+          {
+            "key": "devices[].notificationButtons",
+            "buttonText": "Add notification button",
+            "type": "fieldset",
+            "expandable": true,
+            "expanded": false,
+            "items": [
+              "devices[].notificationButtons[].message",
+              "devices[].notificationButtons[].name",
+              "devices[].notificationButtons[].appId",
+              "devices[].notificationButtons[].file"
+            ]
+          },
+          {
+            "key": "devices[].remoteControlButtons",
+            "title": "Remote control buttons",
+            "buttonText": "Add remote control button",
+            "type": "fieldset",
+            "expandable": true,
+            "expanded": false,
+            "items": [
+              "devices[].remoteControlButtons[].action",
+              "devices[].remoteControlButtons[].name"
+            ]
+          },
+          {
+            "key": "devices[].remoteSequenceButtons",
+            "title": "Remote sequence button",
+            "buttonText": "Add remote sequence button",
+            "type": "fieldset",
+            "expandable": true,
+            "expanded": false,
+            "items": [{
+                "key": "devices[].remoteSequenceButtons[].sequence",
+                "title": "Sequence",
+                "type": "array",
+                "items": [
+                  "devices[].remoteSequenceButtons[].sequence[]"
+                ]
+              },
+              {
+                "key": "devices[].remoteSequenceButtons[].name",
+                "title": "Name",
+                "items": [
+                  "devices[].remoteSequenceButtons[].name"
+                ]
+              },
+              {
+                "key": "devices[].remoteSequenceButtons[].interval",
+                "title": "Interval",
+                "type": "array",
+                "items": [
+                  "devices[].remoteSequenceButtons[].interval[]"
+                ]
+              }
+            ]
+          },
+          {
+            "key": "devices[].soundOutputButtons",
+            "buttonText": "Add sound output button",
+            "type": "fieldset",
+            "expandable": true,
+            "expanded": false,
+            "items": [
+              "devices[].soundOutputButtons[].soundOutput",
+              "devices[].soundOutputButtons[].name"
+            ]
+          },
+          {
+            "key": "devices[].pictureModeButtons",
+            "buttonText": "Add picture mode button",
+            "type": "fieldset",
+            "expandable": true,
+            "expanded": false,
+            "items": [
+              "devices[].pictureModeButtons[].pictureMode",
+              "devices[].pictureModeButtons[].name"
+            ]
+          },
+          {
+            "key": "devices[].soundModeButtons",
+            "buttonText": "Add sound mode button",
+            "type": "fieldset",
+            "expandable": true,
+            "expanded": false,
+            "items": [
+              "devices[].soundModeButtons[].soundMode",
+              "devices[].soundModeButtons[].name"
+            ]
+          },
+          {
+            "key": "devices[].triggers",
+            "type": "fieldset",
+            "expandable": true,
+            "expanded": false,
+            "items": [{
+                "key": "devices[].triggers.volume",
+                "title": "Volume",
+                "type": "object",
+                "items": [
+                  "devices[].triggers.volume.threshold",
+                  "devices[].triggers.volume.name"
+                ]
+              },
+              {
+                "key": "devices[].triggers.backlight",
+                "title": "Backlight",
+                "type": "object",
+                "items": [
+                  "devices[].triggers.backlight.threshold",
+                  "devices[].triggers.backlight.name"
+                ]
+              },
+              {
+                "key": "devices[].triggers.brightness",
+                "title": "Brightness",
+                "type": "object",
+                "items": [
+                  "devices[].triggers.brightness.threshold",
+                  "devices[].triggers.brightness.name"
+                ]
+              },
+              {
+                "key": "devices[].triggers.color",
+                "title": "Color",
+                "type": "object",
+                "items": [
+                  "devices[].triggers.color.threshold",
+                  "devices[].triggers.color.name"
+                ]
+              },
+              {
+                "key": "devices[].triggers.contrast",
+                "title": "Contrast",
+                "type": "object",
+                "items": [
+                  "devices[].triggers.contrast.threshold",
+                  "devices[].triggers.contrast.name"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }]
+}

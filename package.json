@@ -1,0 +1,53 @@
+{
+  "name": "homebridge-webos-tv",
+  "displayName": "webOS TV",
+  "version": "1.0.0",
+  "description": "Homebridge plugin for LG webOS TVs",
+  "type": "module",
+  "exports": "./index.js",
+  "engines": {
+    "node": "^18.20.4 || ^20.15.1 || ^22 || ^24",
+    "homebridge": "^1.6.0 || ^2.0.0-beta.0"
+  },
+  "keywords": [
+    "homebridge-plugin",
+    "webos2",
+    "webos3",
+    "webos4",
+    "webos5",
+    "webos6",
+    "webos22",
+    "webos23",
+    "lgtv",
+    "homebridge",
+    "webos",
+    "homekit"
+  ],
+  "author": "Ergin Ozturk",
+  "funding": {
+    "type": "paypal",
+    "url": "https://paypal.me/ozturkergin"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "persist-path": "^1.0.2",
+    "websocket": "^1.0.32",
+    "mkdirp": "^1.0.4",
+    "tcp-ping": "^0.1.1",
+    "wake_on_lan": "^1.0.0",
+    "chalk": "^5.0.1",
+    "yargs": "^17.6.0",
+    "env-paths": "^3.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ozturkergin/homebridge-LGWebOS.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ozturkergin/homebridge-LGWebOS/issues"
+  },
+  "homepage": "https://github.com/ozturkergin/homebridge-LGWebOS#readme",
+  "bin": {
+    "webostv": "./cli/index.js"
+  }
+}
