@@ -1,6 +1,6 @@
 {
-  "name": "homebridge-webos-tv",
-  "displayName": "webOS TV",
+  "name": "homebridge-webos-tv-ergin",
+  "displayName": "webOS TV Ergin",
   "version": "1.0.0",
   "description": "Homebridge plugin for LG webOS TVs",
   "type": "module",

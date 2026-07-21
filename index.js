@@ -5,9 +5,9 @@ import Events from './lib/Events.js';
 
 let Service, Characteristic, Homebridge, Accessory, HapStatusError, HAPStatus, HAPStorage;
 
-const PLUGIN_NAME = 'homebridge-webos-tv';
+const PLUGIN_NAME = 'homebridge-webos-tv-ergin';
 const PLATFORM_NAME = 'webostv';
-const PLUGIN_VERSION = '2.4.8';
+const PLUGIN_VERSION = '1.0.0';
 
 // General constants
 const NOT_EXISTING_INPUT = 999999;

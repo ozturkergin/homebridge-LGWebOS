@@ -1,6 +1,6 @@
 <span align="center">
 
-# homebridge-webos-tv
+# homebridge-webos-tv-ergin
 ## HomeKit integration for LG webOS TVs
 
 This is a modified fork of the original [homebridge-webos-tv](https://github.com/merdok/homebridge-webos-tv) by merdok.
@@ -8,7 +8,7 @@ Author of this modified version: Ergin Ozturk.
 
 </span>
 
-`homebridge-webos-tv` is a plugin for homebridge which allows you to control your LG webOS TV from your Home app! It should work with all TVs that support webOS2 and newer.  
+`homebridge-webos-tv-ergin` is a plugin for homebridge which allows you to control your LG webOS TV from your Home app! It should work with all TVs that support webOS2 and newer.  
 If you are already running a TV with native Homekit integration then you can still benefit from using this plugin with adding even more features and functionality to your TV.
 
 ### Features
