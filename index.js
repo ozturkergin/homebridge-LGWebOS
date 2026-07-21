@@ -527,6 +527,11 @@ class webosTvDevice {
       // name (name - input config, label - auto generated inputs)
       newInputDef.name = value.name || value.label || newInputDef.appId;
 
+      let staticConf = this.inputs.find(i => i.appId === newInputDef.appId);
+      if (staticConf && staticConf.name) {
+        newInputDef.name = staticConf.name;
+      }
+
       // if we have a saved name in the input sources config then use that
       if (this.tvInputsConfig[newInputDef.appId] && this.tvInputsConfig[newInputDef.appId].name) {
         newInputDef.name = this.tvInputsConfig[newInputDef.appId].name;
@@ -539,7 +544,9 @@ class webosTvDevice {
       newInputDef.id = inputSourceService.getCharacteristic(Characteristic.Identifier).value;
 
       let visible = false;
-      if (this.tvInputsConfig[newInputDef.appId] && this.tvInputsConfig[newInputDef.appId].visible === true) {
+      if (this.tvInputsConfig[newInputDef.appId] && this.tvInputsConfig[newInputDef.appId].visible !== undefined) {
+        visible = this.tvInputsConfig[newInputDef.appId].visible;
+      } else if (staticConf) {
         visible = true;
       }
 
