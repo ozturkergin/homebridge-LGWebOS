@@ -24,10 +24,6 @@
     "homekit"
   ],
   "author": "Ergin Ozturk",
-  "funding": {
-    "type": "paypal",
-    "url": "https://paypal.me/ozturkergin"
-  },
   "license": "MIT",
   "dependencies": {
     "persist-path": "^1.0.2",
